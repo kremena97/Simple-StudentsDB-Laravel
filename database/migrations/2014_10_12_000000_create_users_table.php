@@ -18,15 +18,18 @@ class CreateUsersTable extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('studentNumber')->unique();
-            $table->string('speciality');
-            $table->enum('course', array('1', '2', '3', '4', '5'));
-            $table->enum('educationForm', array('regular', 'distance'));
+            $table->bigInteger('speciality_id')->unsigned();
+            $table->foreign('speciality_id')->references('id')->on('specialities')->onDelete('cascade');
+            $table->string('course');
+            $table->string('educationForm');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        
     }
 
     /**
@@ -37,5 +40,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+
     }
 }

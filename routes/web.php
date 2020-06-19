@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,9 +13,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $specialities = DB::table('specialities')->get();
+    return view('welcome', compact('specialities'));
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/students/{id}', 'StudentController@students')->name('students');
+Route::get('/studentInfo/{id}', 'StudentController@studentInfo')->name('studentInfo');

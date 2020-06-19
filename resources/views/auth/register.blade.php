@@ -54,16 +54,15 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="speciality" class="col-md-4 col-form-label text-md-right">{{ __('Специалност') }}</label>
+                            <label for="speciality_id" class="col-md-4 col-form-label text-md-right">{{ __('Специалност') }}</label>
 
                             <div class="col-md-6">
-                                <select id="speciality" type="number" class="form-control @error('speciality') is-invalid @enderror" name="speciality" value="{{ old('speciality') }}" required autocomplete="speciality" autofocus>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                <select id="speciality_id" type="number" class="form-control @error('speciality_id') is-invalid @enderror" name="speciality_id" value="{{ old('speciality_id') }}" required autocomplete="speciality_id" autofocus>
+                                @foreach($specialities as $s)
+                                <option value="{{$s->id}}">{{ $s->name }} - {{$s->degree}}</option>
+                                @endforeach
                                 </select>
-                                @error('speciality')
+                                @error('speciality_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

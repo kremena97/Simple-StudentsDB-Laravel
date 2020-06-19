@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+
+
 
 class RegisterController extends Controller
 {
@@ -41,6 +44,17 @@ class RegisterController extends Controller
     }
 
     /**
+ * Show the application registration form.
+ *
+ * @return \Illuminate\Http\Response
+ */
+public function showRegistrationForm()
+{
+    $specialities = DB::table('specialities')->get();
+    return view('auth.register', compact('specialities'));
+}
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -52,7 +66,7 @@ class RegisterController extends Controller
             'firstName' => ['required', 'string', 'max:255'],
             'lastName' => ['required', 'string', 'max:255'],
             'studentNumber' => ['required', 'string', 'max:8'],
-            'speciality' => ['required', 'string', 'max:255'],
+            'speciality_id' => ['required', 'string', 'max:255'],
             'course' => ['required', 'string', 'max:255'],
             'educationForm' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -72,7 +86,7 @@ class RegisterController extends Controller
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
             'studentNumber' => $data['studentNumber'],
-            'speciality' => $data['speciality'],
+            'speciality_id' => $data['speciality_id'],
             'course' => $data['course'],
             'educationForm' => $data['educationForm'],
             'email' => $data['email'],
